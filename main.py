@@ -1,5 +1,6 @@
 #main.py
 import asyncio
+import keyboard
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Application
 from utils.send_telegram import load_config, send_message, send_message_async
@@ -72,12 +73,28 @@ async def auto_tool():
     global auto_running
     try:
         auto_running = True
-        print(Fore.BLUE+ "Nhấn 'N' trong 3 giây để bỏ qua Auto (N):")
-        await asyncio.sleep(3)  # Chờ trong 3 giây
-        if input().strip().lower() == 'n':  # Kiểm tra nếu người dùng nhập 'N'
-            print(Fore.GREEN + "Đã bỏ qua chế độ Auto !")
-            return
-        print(Fore.GREEN + "Tiếp tục chế độ Auto !")
+        print(Fore.BLUE + "Nhấn 'N' trong 3 giây để bỏ qua Auto (N):", end='', flush=True)
+
+        key_pressed = False
+
+        def check_key_event():
+            nonlocal key_pressed
+            if keyboard.is_pressed('n'):
+                key_pressed = True
+                # Hiển thị ký tự 'N' sau dòng thông báo
+                print(Fore.GREEN + ' N', end='', flush=True)
+
+        # Trong khi chờ 3 giây, kiểm tra xem người dùng có nhấn 'N' không
+        for _ in range(30):  # 3 giây chia thành 30 lần lặp
+            await asyncio.sleep(0.1)
+            check_key_event()
+            if key_pressed:
+                print(Fore.GREEN + "\nĐã bỏ qua chế độ Auto !")
+                return
+
+        # Nếu không nhấn 'N', tiếp tục chế độ Auto
+        print(Fore.GREEN + "\nTiếp tục chế độ Auto !")
+
         await send_message_async('dev', '\U00002708\U00002708\U00002708 - Begin "Auto" - \U00002708\U00002708\U00002708',delay=2)
 
         result = await auto_status_order(number)

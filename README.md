@@ -1,4 +1,8 @@
-**THÔNG TIN BOT Ver2.3**
+**THÔNG TIN BOT Ver2.3.1**
+
+_Update Ver2.3.1:_
+- Cho phép ấn N trong 3s để bỏ qua chế độ Auto khi khởi động
+- Fix lỗi không tô màu khi Print thông báo
 
 _Update Ver2.3:_
 - Không cho chạy lệnh Manual khi đang "Auto"
