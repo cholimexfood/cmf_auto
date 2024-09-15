@@ -104,6 +104,7 @@ async def import_csv_to_sql(csv_files, conn_str):
             await send_message_async('dev',f'Error: Lỗi import {table_name}: {e}',delay=2)
             return       
         print(Fore.GREEN+f"\rImport file {csv_name} vào {table_name} thành công! (Tổng số dòng import:{success_count})")
+        print(Fore.YELLOW +'---')
         await send_message_async('dev',f'\U00002705 {table_name}:{success_count}',delay=2)
     cursor.close()
     conn.close()
@@ -111,7 +112,7 @@ async def import_csv_to_sql(csv_files, conn_str):
 async def run_stored_procedure(conn_str, procedure_name):
     print(Fore.MAGENTA+"--- Bước 3: Chạy Stored procedure:")
     print(Fore.BLUE+"Tự động chạy sau 5 giây.")
-    asyncio.sleep(5)
+    await asyncio.sleep(5)
     """ 
     user_input = input(colored("\nBạn có muốn chạy Stored procedure? (Y/N): ", 'cyan')).strip().upper()
     if user_input != 'Y':

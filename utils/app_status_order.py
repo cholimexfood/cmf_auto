@@ -101,16 +101,15 @@ async def check_status_order(trangthai):
         driver.implicitly_wait(1)
 
         # Thao tác với các menu trên trang web
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "424"))
-        )
-        actions = ActionChains(driver)
-        actions.move_to_element(element).perform()
+        banhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="424"]/a'))
+            )
+        banhang.click()
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_922"))
-        )
-        element.click()
+        donhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_922"]'))
+            )
+        donhang.click()
 
         time.sleep(10)
 

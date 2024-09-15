@@ -104,7 +104,7 @@ async def wait_for_download_and_rename(menu_name, download_directory, timeout):
         current_time = time.time()
         elapsed_time = current_time - start_time
         if elapsed_time >= timeout:
-            print(Fore.RED +f'Đã quá {timeout} thời gian chờ!')
+            print(Fore.RED +f'{menu_name}: Đã quá {timeout} thời gian chờ!')
             await send_message_async('dev', f'Tải\n{menu_name}\nThất bại - hết giờ',delay=2)
             return 0  # Thất bại
         
@@ -129,41 +129,40 @@ async def download_report_tuyen(menu_name):
         driver.implicitly_wait(1)
 
         # 3. Thao tác với các menu trên trang web
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "1259"))
-        )
-        actions = ActionChains(driver)
-        actions.move_to_element(element).perform()
+        giamsat = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="1259"]/a'))
+            )
+        giamsat.click()
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_1302"))
-        )
-        element.click()
+        tuyen = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_1302"]'))
+            )
+        tuyen.click()    
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_Child_1303"))
-        )
-        element.click()
+        qltuyen = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_Child_1303"]'))
+            )
+        qltuyen.click()
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "btnExportExcel"))
-        )
-        element.click()
+        time.sleep(10)
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "btnSearchStyle2EasyUIUpdate"))
-        )
-        element.click()
+        btnxuat = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="btnExportExcel"]'))
+            )
+        btnxuat.click()
+        time.sleep(2)
+        chonxuat = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="btnSearchStyle2EasyUIUpdate"]'))
+            )
+        chonxuat.click()
+
         timeout = 5*60
+
         check_download = await wait_for_download_and_rename(menu_name, utils.set_mod.download_directory, timeout)
         #tắt popup tải tuyến
-        driver.refresh()
-        #vào nút thoát và thoát trang
-        element = driver.find_element(By.XPATH, "//span[@class='HideText' and text()='Menu']")
-        element.click()
-        element = driver.find_element(By.XPATH, "//a[@href='/commons/logout' and text()='Thoát']")
-        element.click()
+
         driver.delete_all_cookies() 
+        driver.refresh()
     except Exception as e:
         print(Fore.RED +f"Đã xảy ra lỗi khi kiểm tra {menu_name}: {e}")
         await send_message_async(alert_mod_dev,f'Error: Lỗi Web khi đang kiểm tra {menu_name}',delay=2)
@@ -174,11 +173,10 @@ async def download_report_tuyen(menu_name):
     else:
         return 0
 
-
 async def download_report_kh(menu_name):
     check_download=0
     try:
-        print(Fore.BLUE+ 'Bắt đầu tải {menu_name}...')
+        print(Fore.BLUE+ f'Bắt đầu tải {menu_name}...')
         # 1. Mở trang web
         driver.get("https://cholimexfood.dmsone.vn")
         driver.implicitly_wait(1)
@@ -193,44 +191,38 @@ async def download_report_kh(menu_name):
         driver.implicitly_wait(1)
 
         # 3. Thao tác với các menu trên trang web
+        danhmuc = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="398"]/a'))
+            )
+        danhmuc.click()
+
+        khachhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_882"]'))
+            )
+        khachhang.click()
         
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "398"))
-        )
-        actions = ActionChains( driver)
-        actions.move_to_element(element).perform()
+        qlkhachhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_Child_760"]'))
+            )
+        qlkhachhang.click()
 
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_882"))
-        )
-        element.click()
-
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_Child_760"))
-        )
-        element.click()
-        #time.sleep(10)
         await asyncio.sleep(10)
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "btnExportExcelDrop"))
-        )
-        element.click()
-
-        element = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, '//a[@onclick="return CustomerCatalog.exportExcelCustomer();"]'))
-        )
-        element.click()
+        
+        excels = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="btnExportExcelDrop"]'))
+            )
+        excels.click()
+        xuatexcel = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="exportDropdown"]/a[1]'))
+            )
+        xuatexcel.click()
 
         timeout = 5*60
+
         check_download = await wait_for_download_and_rename(menu_name, utils.set_mod.download_directory, timeout)
         #tắt popup tải tuyến
-        driver.refresh()
-        #vào nút thoát và thoát trang
-        element = driver.find_element(By.XPATH, "//span[@class='HideText' and text()='Menu']")
-        element.click()
-        element = driver.find_element(By.XPATH, "//a[@href='/commons/logout' and text()='Thoát']")
-        element.click()
         driver.delete_all_cookies() 
+        driver.refresh()
     except Exception as e:
         print(Fore.RED+f"Đã xảy ra lỗi khi kiểm tra {menu_name}: {e}")
         await send_message_async(alert_mod_dev,f'Error: Lỗi Web khi đang kiểm tra {menu_name}',delay=2)
@@ -245,7 +237,7 @@ async def download_report_dh(menu_name,from_date,to_date):
     check_download=0
     try:
         # 1. Mở trang web
-        print(Fore.BLUE+f'Bắt đầu tải {menu_name}...')
+        print(Fore.BLUE+ f'Bắt đầu tải {menu_name}...')
         driver.get("https://cholimexfood.dmsone.vn")
         driver.implicitly_wait(1)
 
@@ -259,18 +251,16 @@ async def download_report_dh(menu_name,from_date,to_date):
         driver.implicitly_wait(1)
 
         # 3. Thao tác với các menu trên trang web
-        
-        element = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "424"))
-        )
-        actions = ActionChains( driver)
-        actions.move_to_element(element).perform()
+        banhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="424"]/a'))
+            )
+        banhang.click()
 
-        element = WebDriverWait( driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "child_922"))
-        )
-        element.click()
-
+        donhang = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="child_922"]'))
+            )
+        donhang.click()
+        time.sleep(10)
         # Mở dropdown
         dropdown = WebDriverWait( driver, 10).until(
             EC.element_to_be_clickable((By.CSS_SELECTOR, 'span.ui-dropdownchecklist-text'))
@@ -316,20 +306,16 @@ async def download_report_dh(menu_name,from_date,to_date):
         date_output.send_keys(to_date_str)
         date_output.send_keys(Keys.TAB)
 
-        element = WebDriverWait( driver, 10).until(
-            EC.element_to_be_clickable((By.ID, "btnExportExcel"))
-        )
-        element.click()
+        xuatexcel = WebDriverWait(driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, '//*[@id="btnExportExcel"]'))
+            )
+        xuatexcel.click()
+
         timeout = 10*60
         check_download = await wait_for_download_and_rename(menu_name, utils.set_mod.download_directory, timeout)
         #tắt popup tải tuyến
-        driver.refresh()
-        #vào nút thoát và thoát trang
-        element = driver.find_element(By.XPATH, "//span[@class='HideText' and text()='Menu']")
-        element.click()
-        element = driver.find_element(By.XPATH, "//a[@href='/commons/logout' and text()='Thoát']")
-        element.click()
         driver.delete_all_cookies() 
+        driver.refresh()
 
     except Exception as e:
         print(Fore.RED+f"Đã xảy ra lỗi khi kiểm tra {menu_name}: {e}")

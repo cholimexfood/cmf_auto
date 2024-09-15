@@ -52,6 +52,10 @@ chrome_options = Options()
 #chrome_options.add_argument("--headless")  # Chạy ở chế độ headless
 chrome_options.add_argument("--disable-gpu")  # Vô hiệu hóa GPU
 chrome_options.add_argument("--window-size=1920x1080")  # Đặt kích thước cửa sổ ảo
+chrome_options.add_argument('--log-level=3') 
+chrome_options.add_argument('--disable-notifications')  # Tắt thông báo
+chrome_options.add_argument('--disable-popup-blocking')  # Tắt chặn cửa sổ pop-up
+
 chrome_prefs = {
     "download.default_directory": download_directory,
     "profile.default_content_settings.popups": 0,
@@ -111,14 +115,14 @@ default_config = {
     "web": 'https://cholimexfood.dmsone.vn',
     "username": 'GADMIN',
     "password": 'Ch0oL!iM3ex#2024',
-    "token_bot": '7503563708:AAHTKkdefkN6POU8CRVOAX93K3HvkKabhN0',
-    "chat_id_dev": '-1002152000157',
-    "chat_id_user": '-1002174879429',
-    "procedure_name" : 'RunUpdateTblTuyen',
-    "server" : '118.69.76.220,2403',
-    "database" : 'DMS_Report',
+    "token_bot": '7495350405:AAF7GoT513arnQgWBSDxyyng77QbRLhheGg',
+    "chat_id_dev": '-4582491435',
+    "chat_id_user": '-4553197920',
+    "procedure_name" : 'RunSelectTest',
+    "server" : '10.211.55.3,1433',
+    "database" : 'SQLTEST',
     "usernameSQL" : 'sa',
-    "passwordSQL" : 'Ve$Mau@Trai!Tim',
+    "passwordSQL" : '1',
     "time_auto":'09:30',
     "number_repeat_order": '1'
 }

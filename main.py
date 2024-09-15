@@ -12,6 +12,8 @@ import nest_asyncio
 from datetime import datetime, timedelta
 import warnings
 from utils.set_mod import load_config 
+from colorama import Fore, Back, Style, init
+init(autoreset=True) 
 # Bỏ qua cảnh báo không cần thiết
 warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._applicationbuilder')
 
@@ -70,6 +72,12 @@ async def auto_tool():
     global auto_running
     try:
         auto_running = True
+        print(Fore.BLUE+ "Nhấn 'N' trong 3 giây để bỏ qua Auto (N):")
+        await asyncio.sleep(3)  # Chờ trong 3 giây
+        if input().strip().lower() == 'n':  # Kiểm tra nếu người dùng nhập 'N'
+            print(Fore.GREEN + "Đã bỏ qua chế độ Auto !")
+            return
+        print(Fore.GREEN + "Tiếp tục chế độ Auto !")
         await send_message_async('dev', '\U00002708\U00002708\U00002708 - Begin "Auto" - \U00002708\U00002708\U00002708',delay=2)
 
         result = await auto_status_order(number)
