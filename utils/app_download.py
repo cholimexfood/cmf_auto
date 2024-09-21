@@ -109,7 +109,7 @@ async def wait_for_download_and_rename(menu_name, download_directory, timeout):
             return 0  # Thất bại
         
         #time.sleep(3)
-        await asyncio.sleep(3)
+        await asyncio.sleep(2)
     
 async def download_report_tuyen(menu_name):
     check_download = 0

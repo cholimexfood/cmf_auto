@@ -43,7 +43,6 @@ from_date = to_date - timedelta(days=so_ngay_check)
 from_date_str = from_date.strftime('%d/%m/%Y')
 to_date_str = to_date.strftime('%d/%m/%Y')
 
-
 config = load_config()
 
 def check_and_remove_old_files(statuses):
@@ -55,6 +54,7 @@ def check_and_remove_old_files(statuses):
         else:
             #print('\nKhông có file để xóa !')
             return
+        time.sleep(1) #chờ 1s cho hệ thống xoá file tránh lỗi vặt
 
 def download_and_rename_file(expected_name, download_directory):
     wait_time = 300  # Thời gian chờ tối đa (giây)
@@ -83,7 +83,7 @@ def download_and_rename_file(expected_name, download_directory):
             print(Fore.RED +"Lỗi! Hết thời gian chờ tải")
             return 0
         # Chờ một chút trước khi kiểm tra lại
-        time.sleep(1)
+        time.sleep(2)
 
 async def check_status_order(trangthai):
     co_kiem_tra = 1
@@ -182,8 +182,9 @@ async def check_status_order(trangthai):
         co_kiem_tra = 0
 
     finally:
-        driver.refresh()  # Tắt popup tải tuyến
+        #driver.refresh()  # Tắt popup tải tuyến
         try:
+            '''
             menu_button = WebDriverWait(driver, 10).until(
                 EC.element_to_be_clickable((By.XPATH, "//span[@class='HideText' and text()='Menu']"))
             )
@@ -192,6 +193,7 @@ async def check_status_order(trangthai):
                 EC.element_to_be_clickable((By.XPATH, "//a[@href='/commons/logout' and text()='Thoát']"))
             )
             logout_button.click()
+            '''
             driver.delete_all_cookies()
         except Exception as e:
             print(Fore.RED +f"Đã xảy ra lỗi khi thoát: {e}")            
@@ -336,7 +338,7 @@ async def app_check_order(max_checks):
                 return 0
             print(Fore.BLUE +f'Done! Waitting {delay_minute} minute & recheck...:')
             await send_message_async(alert_mod_dev,f'⏳ Chờ {delay_minute} phút...',delay=2)
-            time.sleep(delay_minute*60)  # Chờ 15 phút
+            time.sleep(delay_minute*60)  # Chờ chạy lại
 
 async def run_app_check_order(max_checks):
     print(Style.BRIGHT + Fore.YELLOW +'---------- START APP STATUS ORDER ----------')

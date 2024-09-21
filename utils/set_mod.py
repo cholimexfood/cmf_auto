@@ -49,7 +49,7 @@ def get_chromedriver_path():
     return str(driver_path)
  
 chrome_options = Options()
-#chrome_options.add_argument("--headless")  # Chạy ở chế độ headless
+chrome_options.add_argument("--headless")  # Chạy ở chế độ headless
 chrome_options.add_argument("--disable-gpu")  # Vô hiệu hóa GPU
 chrome_options.add_argument("--window-size=1920x1080")  # Đặt kích thước cửa sổ ảo
 chrome_options.add_argument('--log-level=3') 
@@ -124,7 +124,7 @@ default_config = {
     "usernameSQL" : 'sa',
     "passwordSQL" : '1',
     "time_auto":'09:30',
-    "number_repeat_order": '1'
+    "number_repeat_order": '4'
 }
 
 def get_setup_file_path():

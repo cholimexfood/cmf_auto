@@ -18,7 +18,7 @@ init(autoreset=True)
 # Bỏ qua cảnh báo không cần thiết
 warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._applicationbuilder')
 
-info_bot = '[Bot Ver2.3]:[Bé Na \U0001F40D]'
+info_bot = '[Bot Ver2.4]:[Bé Na \U0001F40D]'
 config = load_config()
 number = int(config['number_repeat_order'])
 
@@ -98,6 +98,7 @@ async def auto_tool():
         await send_message_async('dev', '\U00002708\U00002708\U00002708 - Begin "Auto" - \U00002708\U00002708\U00002708',delay=2)
 
         result = await auto_status_order(number)
+        await asyncio.sleep(1)
 
         target_time_str = config['time_auto']
         target_time = datetime.strptime(target_time_str, '%H:%M').time()
@@ -119,7 +120,7 @@ async def auto_tool():
             await auto_sql()
             await send_message_async('dev', '\U0001F6A9\U0001F6A9\U0001F6A9 - Finish "Auto" - \U0001F6A9\U0001F6A9\U0001F6A9',delay=2)
         else:
-            if dem_nguoc_end > (60*60):
+            if dem_nguoc_end > (90*60):
                 await send_message_async('dev', '\U0001F4E2\U0001F4E2\U0001F4E2 - Caution "Auto" - \U0001F4E2\U0001F4E2\U0001F4E2\nĐơn hàng vẫn chưa duyệt hết - hãy kiểm tra',delay=2)
                 await send_message_async('dev', '[ERROR]\nRecommended: Duyệt hết đơn -> Khởi chạy Manual\n\U0001F6A9\U0001F6A9\U0001F6A9 - End "Auto" - \U0001F6A9\U0001F6A9\U0001F6A9',delay=2)
                 return
