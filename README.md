@@ -7,7 +7,7 @@ _Update Ver2.4:_
 
 _Update Ver2.3.1:_
 - Cho phép ấn N trong 3s để bỏ qua chế độ Auto khi khởi động
-- Fix lỗi không tô màu khi Print thông báo
+- Fix lỗi màu sắc khi Print thông báo trong cmd
 
 _Update Ver2.3:_
 - Không cho chạy lệnh Manual khi đang "Auto"
