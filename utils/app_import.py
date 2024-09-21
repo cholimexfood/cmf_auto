@@ -154,6 +154,7 @@ async def importtosql():
     else:
         csvs_files = await excel_to_csv(excel_files)
         await import_csv_to_sql(csvs_files, utils.set_mod.conn_str)
+        await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.optimalDB)
         await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.procedure_name)
 
 async def run_main_import_async():

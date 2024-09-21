@@ -124,7 +124,8 @@ default_config = {
     "usernameSQL" : 'sa',
     "passwordSQL" : '1',
     "time_auto":'09:30',
-    "number_repeat_order": '4'
+    "number_repeat_order": '4',
+    "optimalDB":'ToiUuLogDB',
 }
 
 def get_setup_file_path():
@@ -173,6 +174,7 @@ def load_config():
 config = load_config()
 
 procedure_name = config['procedure_name']
+optimalDB =config['optimalDB']
 server = config['server']
 database = config['database']
 username = config['usernameSQL']

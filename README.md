@@ -1,6 +1,7 @@
 **THÔNG TIN BOT Ver2.4**
 
 _Update Ver2.4:_
+- Tối ưu Log DB: giảm dung lượng Log mỗi ngày trước khi Import Data
 - Fixed: lỗi check đơn lần cuối không hoạt động
 - Fixed: lỗi không xoá được File kết quả check đơn hàng -> dẫn đến kết quả thông báo bị sai
 - Tối ưu hoá đăng nhập vào thoát web
