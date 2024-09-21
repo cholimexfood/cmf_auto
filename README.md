@@ -1,8 +1,8 @@
 **THÔNG TIN BOT Ver2.4**
 
 _Update Ver2.4:_
-- Giảm thời gian check lần cuối vào lúc 9h30 AM
-- Fixed: lỗi không xoá được File kết quả check đơn hàng -> ã đến kết quả thông báo bị sai
+- Fixed: lỗi check đơn lần cuối không hoạt động
+- Fixed: lỗi không xoá được File kết quả check đơn hàng -> dẫn đến kết quả thông báo bị sai
 - Tối ưu hoá đăng nhập vào thoát web
 
 _Update Ver2.3.1:_
