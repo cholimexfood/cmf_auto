@@ -65,7 +65,7 @@ async def process_files(download_dir, import_dir, file_mapping):
                 except OSError:
                     pass  # Nếu tệp không tồn tại, không cần xử lý
             df.to_excel(dest_path, index=False)
-            print(Fore.GREEN +f"Done! Đã lưu file {dest_file}.")
+            print(Fore.GREEN +f"\nDone! Đã lưu file {dest_file}.")
             await send_message_async('dev', f'\U0000274E {dest_file} \U00002714',delay=2)
         else:
             print(Fore.RED +f"File nguồn {source_file} không tồn tại trong thư mục {download_dir}.")

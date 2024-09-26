@@ -205,7 +205,7 @@ async def runscript_command_optimalDB(update: Update, context: ContextTypes.DEFA
     try:
         await update.message.reply_text(f'{info_bot}\n- Khởi chạy App: RunScript xong !')
         await send_message_async('dev', '--- [Manual]:[Script]:[Start] -',delay=2)
-        await run_stored_procedure_optimalDB()
+        await run_stored_procedure_optimalDB(update, context)
         await send_message_async('dev', '--- [Manual]:[Script]:[End] -',delay=2)
     except Exception as e:
         await update.message.reply_text(f'{info_bot}\n[ERROR] - {e}')
@@ -225,7 +225,7 @@ def add_handlers(application: Application):
         'copytoform': copytoform_command,
         'importtosql': importtosql_command,
         'runscript':runscript_command,
-        'runscriptoptimaldb':run_stored_procedure_optimalDB,
+        'runscriptoptimaldb':runscript_command_optimalDB,
         'manualsql':manual_sql,
     }
 

@@ -6,8 +6,7 @@ a = Analysis(
     pathex=['.'],
     binaries=[],
     datas=[
-        ('utils/drivers/chromedriver_mac', 'utils/drivers'),
-        ('utils/drivers/chromedriver_win.exe', 'utils/drivers'),
+        ('utils/drivers/chromedriver.exe', 'utils/drivers'),
     ],
     hiddenimports=[],
     hookspath=[],

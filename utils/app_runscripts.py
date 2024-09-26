@@ -6,10 +6,11 @@ from utils.send_telegram import send_message,send_message_async
 import utils.set_mod
 from colorama import Fore, Back, Style, init
 init(autoreset=True) 
-async def stored_procedure():
+
+async def stored_procedure_Update():
     conn_str = utils.set_mod.conn_str
     procedure_name = utils.set_mod.procedure_name
-    print(Fore.MAGENTA+"--- Bước 3: Chạy Stored procedure:")
+    #print(Fore.MAGENTA+"--- Bước 3: Chạy Stored procedure:")
     print(Fore.BLUE+"Tự động chạy sau 5 giây.")
     await asyncio.sleep(5)
     try:
@@ -30,5 +31,5 @@ async def stored_procedure():
 
 async def run_stored_procedure():
     print(Style.BRIGHT + Fore.YELLOW +'---------- START APP RUN SCRIPTS ----------')
-    await stored_procedure()
+    await stored_procedure_Update()
     print(Style.BRIGHT + Fore.YELLOW +'---------- STOP  APP RUN SCRIPTS ----------')

@@ -110,7 +110,7 @@ async def import_csv_to_sql(csv_files, conn_str):
     conn.close()
 
 async def run_stored_procedure(conn_str, procedure_name):
-    print(Fore.MAGENTA+"--- Bước 3: Chạy Stored procedure:")
+    print(Fore.MAGENTA+"--- Bước 4: Chạy Stored procedure Update:")
     print(Fore.BLUE+"Tự động chạy sau 5 giây.")
     await asyncio.sleep(5)
     """ 
@@ -136,6 +136,32 @@ async def run_stored_procedure(conn_str, procedure_name):
         conn.close()
         #sys.exit()
 
+async def stored_procedure_LogDB():
+    conn_str = utils.set_mod.conn_str
+    procedure_name = utils.set_mod.optimalDB
+    print(Fore.MAGENTA + "--- Bước 3: Chạy Stored procedure Optimal LG DB:")
+    print(Fore.BLUE + "Tự động chạy sau 5 giây.")
+    await asyncio.sleep(5)
+
+    try:
+        print(Fore.BLUE + f"Đang chạy Stored procedure: {procedure_name}...")
+        conn = pyodbc.connect(conn_str, autocommit=True)  # Sử dụng autocommit=True để tránh multi-statement transaction
+        cursor = conn.cursor()
+
+        cursor.execute(f"EXEC {procedure_name}")
+        conn.commit()
+
+        print(Fore.GREEN + f"\rDone! Stored procedure: {procedure_name}!")
+        await send_message_async('dev', f'\U0001F3C3 Script: {procedure_name} \U00002714', delay=2)
+
+    except pyodbc.Error as e:
+        print(Fore.RED + f"Lỗi khi chạy stored procedure: {e}")
+        await send_message_async('dev', f'Lỗi khi chạy Script: {e}', delay=2)
+
+    finally:
+        cursor.close()
+        conn.close()
+
 async def importtosql():
     excel_files = [
         os.path.join(output_directory, 'tbl_tuyen.xlsx'),
@@ -154,7 +180,7 @@ async def importtosql():
     else:
         csvs_files = await excel_to_csv(excel_files)
         await import_csv_to_sql(csvs_files, utils.set_mod.conn_str)
-        await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.optimalDB)
+        await stored_procedure_LogDB()
         await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.procedure_name)
 
 async def run_main_import_async():
