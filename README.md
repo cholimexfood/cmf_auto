@@ -1,4 +1,9 @@
-**THÔNG TIN BOT Ver2.4**
+**THÔNG TIN BOT Ver2.4.1**
+
+_Update Ver2.4.1:_
+- Fix lỗi Crash Tools do Chrome cập nhật.
+- Fix lỗi tối ưu Log DB không chạy.
+- Bổ sung lệnh manual tối ưu DB.
 
 _Update Ver2.4:_
 - Tối ưu Log DB: giảm dung lượng Log mỗi ngày trước khi Import Data

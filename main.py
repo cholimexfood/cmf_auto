@@ -9,6 +9,7 @@ from utils.app_download import run_main_download_async
 from utils.app_copy import run_main_copy_async
 from utils.app_import import run_main_import_async
 from utils.app_runscripts import run_stored_procedure
+from utils.app_optimalDB import run_stored_procedure_optimalDB
 import nest_asyncio
 from datetime import datetime, timedelta
 import warnings
@@ -18,7 +19,7 @@ init(autoreset=True)
 # Bỏ qua cảnh báo không cần thiết
 warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._applicationbuilder')
 
-info_bot = '[Bot Ver2.4]:[Bé Na \U0001F40D]'
+info_bot = '[Bot Ver2.4.1]:[Bé Na \U0001F40D]'
 config = load_config()
 number = int(config['number_repeat_order'])
 
@@ -67,7 +68,6 @@ async def manual_sql(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         await send_message_async('dev', '--- [Manual]:[Import]:[End] -',delay=2)
     except Exception as e:
         await update.message.reply_text(f'{info_bot}\n[ERROR] - {e}')
-
 
 async def auto_tool():
     global auto_running
@@ -198,6 +198,17 @@ async def runscript_command(update: Update, context: ContextTypes.DEFAULT_TYPE) 
     except Exception as e:
         await update.message.reply_text(f'{info_bot}\n[ERROR] - {e}')
 
+async def runscript_command_optimalDB(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
+    if auto_running:
+        await update.message.reply_text(f'{info_bot}\n\U0001F4E2 "Auto" đang chạy. Không nhận lệnh')
+        return
+    try:
+        await update.message.reply_text(f'{info_bot}\n- Khởi chạy App: RunScript xong !')
+        await send_message_async('dev', '--- [Manual]:[Script]:[Start] -',delay=2)
+        await run_stored_procedure_optimalDB()
+        await send_message_async('dev', '--- [Manual]:[Script]:[End] -',delay=2)
+    except Exception as e:
+        await update.message.reply_text(f'{info_bot}\n[ERROR] - {e}')
 
 async def hi_start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     if auto_running:
@@ -214,6 +225,7 @@ def add_handlers(application: Application):
         'copytoform': copytoform_command,
         'importtosql': importtosql_command,
         'runscript':runscript_command,
+        'runscriptoptimaldb':run_stored_procedure_optimalDB,
         'manualsql':manual_sql,
     }
 

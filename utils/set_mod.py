@@ -29,12 +29,12 @@ if not os.path.exists(download_directory):
 # Xác nhận đường dẫn cấu hình chrome
 def get_chromedriver_path():
     system = platform.system()
-    if system == "Darwin":  # macOS
-        driver_name = "chromedriver_mac"
-    elif system == "Windows":  # Windows
-        driver_name = "chromedriver_win.exe"
-    elif system == "Linux":  # Linux
-        driver_name = "chromedriver_linux"
+    #if system == "Darwin":  # macOS
+    #    driver_name = "chromedriver_mac"
+    if system == "Windows":  # Windows
+        driver_name = "chromedriver.exe"
+    #elif system == "Linux":  # Linux
+    #    driver_name = "chromedriver_linux"
     else:
         raise Exception("Unsupported OS")
 
@@ -64,6 +64,7 @@ chrome_prefs = {
 chromedriver_path = get_chromedriver_path()
 chrome_options.add_experimental_option("prefs", chrome_prefs)
 service = Service(chromedriver_path)
+
 driver = webdriver.Chrome(service=service, options=chrome_options)
 
 # Hàm để lấy driver

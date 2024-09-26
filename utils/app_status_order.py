@@ -56,6 +56,13 @@ def check_and_remove_old_files(statuses):
             return
         time.sleep(1) #chờ 1s cho hệ thống xoá file tránh lỗi vặt
 
+def check_and_remove_old_files_all():
+    for filename in os.listdir(utils.set_mod.download_directory):
+        file_path = os.path.join(utils.set_mod.download_directory, filename)
+        if os.path.isfile(file_path):  # Kiểm tra nếu là file (không phải thư mục)
+            os.remove(file_path)
+            #print(f"\nĐã xóa file {file_path}")
+
 def download_and_rename_file(expected_name, download_directory):
     wait_time = 300  # Thời gian chờ tối đa (giây)
     start_time = time.time()
@@ -286,7 +293,8 @@ def read_and_print_excel(download_directory, file_name):
 async def check_order():
     statuses = ['Đã xác nhận đơn hàng','Chưa xác nhận đơn hàng']
     delete_file = ['Chưa xác nhận đơn hàng','Đã xác nhận đơn hàng','Kết quả chưa duyệt đơn hàng','Đã trả']
-    check_and_remove_old_files(delete_file)
+    #check_and_remove_old_files(delete_file)
+    check_and_remove_old_files_all()
               
     for status in statuses:
         while True:
