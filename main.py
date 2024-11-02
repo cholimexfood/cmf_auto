@@ -19,7 +19,7 @@ init(autoreset=True)
 # Bỏ qua cảnh báo không cần thiết
 warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._applicationbuilder')
 
-info_bot = '[Bot Ver2.4.1]:[Bé Na \U0001F40D]'
+info_bot = '[Bot Ver2.5]:[Bé Na \U0001F40D]'
 config = load_config()
 number = int(config['number_repeat_order'])
 
@@ -33,7 +33,7 @@ async def auto_status_order(max_check):
         await send_message_async('dev', f'[ERROR] [Auto]:[Stt_Order] - {e}',delay=2)
     return kq  # Giả định
 
-async def auto_sql():
+async def auto_down():
     try:
         await send_message_async('dev', '--- [Auto]:[Download]:[Start] -',delay=2)
         await run_main_download_async()
@@ -43,6 +43,11 @@ async def auto_sql():
         await run_main_copy_async()
         await send_message_async('dev', '--- [Auto]:[Form]:[End] -',delay=2)
 
+    except Exception as e:
+        await send_message_async('dev', f'[ERROR] [Auto]:[DOWN] - {e}',delay=2)
+
+async def auto_sql():
+    try:
         await send_message_async('dev', '--- [Auto]:[Import]:[Start] -',delay=2)
         await run_main_import_async()
         await send_message_async('dev', '--- [Auto]:[Import]:[End] -',delay=2)
@@ -66,6 +71,11 @@ async def manual_sql(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None
         await send_message_async('dev', '--- [Manual]:[Import]:[Start] -',delay=2)
         await run_main_import_async()
         await send_message_async('dev', '--- [Manual]:[Import]:[End] -',delay=2)
+
+        await send_message_async('dev', '--- [Manual]:[Script]:[Start] -',delay=2)
+        await run_stored_procedure()
+        await send_message_async('dev', '--- [Manual]:[Script]:[End] -',delay=2)
+
     except Exception as e:
         await update.message.reply_text(f'{info_bot}\n[ERROR] - {e}')
 
@@ -115,9 +125,17 @@ async def auto_tool():
         dem_nguoc_end_str = f"{int(dem_nguoc_end // 3600):02} tiếng {int((dem_nguoc_end % 3600) // 60):02} phút"
 
         if result == 1:
+            await auto_down()
+            await auto_sql()
+            dem_nguoc = (target_datetime - datetime.now()).total_seconds()
+            dem_nguoc_str = f"{int(dem_nguoc // 3600):02} tiếng {int((dem_nguoc % 3600) // 60):02} phút"
             await send_message_async('dev', f'\U0001F4E2\U0001F4E2\U0001F4E2 - Alert "Auto" - \U0001F4E2\U0001F4E2\U0001F4E2\nĐã duyệt xong đơn - Tiếp tục "Auto" sau: {dem_nguoc_str}',delay=2)
             await asyncio.sleep(dem_nguoc)
-            await auto_sql()
+
+            await send_message_async('dev', '--- [Auto]:[Script]:[Start] -',delay=2)
+            await run_stored_procedure()
+            await send_message_async('dev', '--- [Auto]:[Script]:[End] -',delay=2)
+
             await send_message_async('dev', '\U0001F6A9\U0001F6A9\U0001F6A9 - Finish "Auto" - \U0001F6A9\U0001F6A9\U0001F6A9',delay=2)
         else:
             if dem_nguoc_end > (90*60):
@@ -128,7 +146,13 @@ async def auto_tool():
             await asyncio.sleep(dem_nguoc_end)
             result = await auto_status_order(1)
             if result == 1:
+                await auto_down()
                 await auto_sql()
+                
+                await send_message_async('dev', '--- [Auto]:[Script]:[Start] -',delay=2)
+                await run_stored_procedure()
+                await send_message_async('dev', '--- [Auto]:[Script]:[End] -',delay=2)
+
                 await send_message_async('dev', '\U0001F6A9\U0001F6A9\U0001F6A9 - Finish "Auto" - \U0001F6A9\U0001F6A9\U0001F6A9',delay=2)
             else:
                 await send_message_async('dev', '\U0001F4E2\U0001F4E2\U0001F4E2 - Caution "Auto" - \U0001F4E2\U0001F4E2\U0001F4E2\nĐơn hàng vẫn chưa duyệt hết - hãy kiểm tra',delay=2)

@@ -1,4 +1,15 @@
-**THÔNG TIN BOT Ver2.4.1**
+**THÔNG TIN BOT Ver2.5**
+
+_Update Ver2.5: Ver tối ưu tiến trình - tiết kiệm thời gian (Dự kiến trước 10h hoàn thành)_
+- Tool tự chạy vào 7h50 AM
+- Giảm số lần check đơn thành 3 lần (mỗi lần cách nhau 20 phút).
+- Nếu đơn hàng xử lý xong: Down - Tạo Form - Tạo CSV - Import sẵn dữ liệu - chờ 9h chạy Script
+- Nếu đơn hàng chưa xử lý xong: 9h30 kiểm tra lần cuối:
+    - Nếu xong: Auto toàn bộ tiến trình.
+    - Nếu chưa xong: Kết thúc Auto
+
+_Update Ver2.4.2: Tối ưu tiến trình (giảm thời gian)_
+- Tool Download và Create Form Excel chạy ngay sau khi đơn hàng được duyệt xong
 
 _Update Ver2.4.1:_
 - Fix lỗi Crash Tools do Chrome cập nhật.

@@ -181,7 +181,7 @@ async def importtosql():
         csvs_files = await excel_to_csv(excel_files)
         await import_csv_to_sql(csvs_files, utils.set_mod.conn_str)
         await stored_procedure_LogDB()
-        await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.procedure_name)
+        #await run_stored_procedure(utils.set_mod.conn_str, utils.set_mod.procedure_name)
 
 async def run_main_import_async():
     print(Style.BRIGHT + Fore.YELLOW +'---------- START APP CONVERT AND IMPORT TO SQL ----------')

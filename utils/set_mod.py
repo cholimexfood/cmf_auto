@@ -124,8 +124,8 @@ default_config = {
     "database" : 'DMS_Report',
     "usernameSQL" : 'sa',
     "passwordSQL" : 'Ve$Mau@Trai!Tim',
-    "time_auto":'09:30',
-    "number_repeat_order": '4',
+    "time_auto":'09:00',
+    "number_repeat_order": '3',
     "optimalDB":'ToiUuLogDB',
 }
 
