@@ -19,7 +19,7 @@ init(autoreset=True)
 # Bỏ qua cảnh báo không cần thiết
 warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._applicationbuilder')
 
-info_bot = '[Bot Ver2.5]:[Bé Na \U0001F40D]'
+info_bot = '[Bot Ver2.5.1]:[Bé Na \U0001F40D]'
 config = load_config()
 number = int(config['number_repeat_order'])
 

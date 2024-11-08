@@ -1,5 +1,8 @@
 **THÔNG TIN BOT Ver2.5**
 
+_Update Ver2.5.1:_
+- Fix lỗi thời gian chờ lỗi (số âm) khi chạy Script Update.
+
 _Update Ver2.5: Ver tối ưu tiến trình - tiết kiệm thời gian (Dự kiến trước 10h hoàn thành)_
 - Tool tự chạy vào 7h50 AM
 - Giảm số lần check đơn thành 3 lần (mỗi lần cách nhau 20 phút).
