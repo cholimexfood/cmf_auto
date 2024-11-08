@@ -129,8 +129,9 @@ async def auto_tool():
             await auto_sql()
             dem_nguoc = (target_datetime - datetime.now()).total_seconds()
             dem_nguoc_str = f"{int(dem_nguoc // 3600):02} tiếng {int((dem_nguoc % 3600) // 60):02} phút"
-            await send_message_async('dev', f'\U0001F4E2\U0001F4E2\U0001F4E2 - Alert "Auto" - \U0001F4E2\U0001F4E2\U0001F4E2\nĐã duyệt xong đơn - Tiếp tục "Auto" sau: {dem_nguoc_str}',delay=2)
-            await asyncio.sleep(dem_nguoc)
+            if dem_nguoc >= 0:
+                await send_message_async('dev', f'\U0001F4E2\U0001F4E2\U0001F4E2 - Alert "Auto" - \U0001F4E2\U0001F4E2\U0001F4E2\nĐã duyệt xong đơn - Tiếp tục "Auto" sau: {dem_nguoc_str}',delay=2)
+                await asyncio.sleep(dem_nguoc)
 
             await send_message_async('dev', '--- [Auto]:[Script]:[Start] -',delay=2)
             await run_stored_procedure()
