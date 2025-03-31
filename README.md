@@ -1,4 +1,7 @@
-**THÔNG TIN BOT Ver2.5**
+**THÔNG TIN BOT Ver2.6**
+
+_Update Ver2.6:_
+- Nếu chạy Bot sau 9h:30 AM hằng ngày thì sẽ vào thẳng chế độ Manual.
 
 _Update Ver2.5.1:_
 - Fix lỗi thời gian chờ lỗi (số âm) khi chạy Script Update.
