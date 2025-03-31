@@ -1,4 +1,5 @@
 #main.py
+import datetime
 import asyncio
 import keyboard
 import os
@@ -99,19 +100,19 @@ async def auto_tool():
     global auto_running
     try:
         auto_running = True
-        print(Fore.BLUE + "Nhấn 'N' trong 3 giây để bỏ qua Auto (N):", end='', flush=True)
+        print(Fore.BLUE + "Nhấn 'N' trong 5 giây để bỏ qua Auto (N):", end='', flush=True)
 
         key_pressed = False
 
         def check_key_event():
             nonlocal key_pressed
-            if keyboard.is_pressed('n'):
+            if datetime.datetime.now().hour >= 9 and (datetime.datetime.now().minute >= 30 or keyboard.is_pressed('n')):
                 key_pressed = True
                 # Hiển thị ký tự 'N' sau dòng thông báo
                 print(Fore.GREEN + ' N', end='', flush=True)
 
         # Trong khi chờ 3 giây, kiểm tra xem người dùng có nhấn 'N' không
-        for _ in range(30):  # 3 giây chia thành 30 lần lặp
+        for _ in range(50):  # 3 giây chia thành 30 lần lặp
             await asyncio.sleep(0.1)
             check_key_event()
             if key_pressed:
