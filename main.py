@@ -1,6 +1,8 @@
 #main.py
 import asyncio
 import keyboard
+import os
+import tempfile
 from telegram import Update
 from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes, Application
 from utils.send_telegram import load_config, send_message, send_message_async
@@ -22,6 +24,20 @@ warnings.filterwarnings("ignore", category=UserWarning, module='telegram.ext._ap
 info_bot = '[Bot Ver2.5.1]:[Bé Na \U0001F40D]'
 config = load_config()
 number = int(config['number_repeat_order'])
+
+def delete_temp_files():
+    temp_dir = tempfile.gettempdir()
+    for filename in os.listdir(temp_dir):
+        file_path = os.path.join(temp_dir, filename)
+        try:
+            if os.path.isfile(file_path) or os.path.islink(file_path):
+                os.unlink(file_path)
+                print(f"Đã xóa tệp: {file_path}")
+            elif os.path.isdir(file_path):
+                os.rmdir(file_path)
+                print(f"Đã xóa thư mục: {file_path}")
+        except Exception as e:
+            print(f"Không thể xóa {file_path}. Lỗi: {e}")
 
 async def auto_status_order(max_check):
     try:
@@ -258,6 +274,7 @@ def add_handlers(application: Application):
         application.add_handler(CommandHandler(command, handler))
 
 async def main():
+    delete_temp_files()
     print('Tool đang chạy...')
     time_now = datetime.now()
     time_now_str = time_now.strftime("%H:%M %d/%M/%Y")
