@@ -1,5 +1,4 @@
 #main.py
-import datetime
 import asyncio
 import keyboard
 import os
@@ -14,7 +13,7 @@ from utils.app_import import run_main_import_async
 from utils.app_runscripts import run_stored_procedure
 from utils.app_optimalDB import run_stored_procedure_optimalDB
 import nest_asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta,time
 import warnings
 from utils.set_mod import load_config 
 from colorama import Fore, Back, Style, init
@@ -33,12 +32,15 @@ def delete_temp_files():
         try:
             if os.path.isfile(file_path) or os.path.islink(file_path):
                 os.unlink(file_path)
-                print(f"Đã xóa tệp: {file_path}")
+                #print(f"Đã xóa tệp: {file_path}")
+        
             elif os.path.isdir(file_path):
                 os.rmdir(file_path)
-                print(f"Đã xóa thư mục: {file_path}")
+                #print(f"Đã xóa thư mục: {file_path}")
+         
         except Exception as e:
-            print(f"Không thể xóa {file_path}. Lỗi: {e}")
+            #print(f"Không thể xóa {file_path}. Lỗi: {e}")
+            return
 
 async def auto_status_order(max_check):
     try:
@@ -100,15 +102,17 @@ async def auto_tool():
     global auto_running
     try:
         auto_running = True
-        print(Fore.BLUE + "Nhấn 'N' trong 5 giây để bỏ qua Auto (N):", end='', flush=True)
 
+        print(Fore.BLUE + "Tự bỏ qua Auto nếu > 9:30 AM hoặc Nhấn 'N' trong 5 giây để bỏ qua Auto (N):", end='', flush=True)
         key_pressed = False
-
         def check_key_event():
             nonlocal key_pressed
-            if datetime.datetime.now().hour >= 9 and (datetime.datetime.now().minute >= 30 or keyboard.is_pressed('n')):
+            time_check = datetime.now()
+            # Tạo thời gian 9:30 AM để so sánh
+            target_time = time(9, 30)
+
+            if  time_check.time() >= target_time or keyboard.is_pressed('n'):
                 key_pressed = True
-                # Hiển thị ký tự 'N' sau dòng thông báo
                 print(Fore.GREEN + ' N', end='', flush=True)
 
         # Trong khi chờ 3 giây, kiểm tra xem người dùng có nhấn 'N' không
